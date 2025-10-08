@@ -60,7 +60,9 @@ export default function ColorClusterGame({
             {screen === 'menu' && (
                 <div className="mt-8 p-6 flex flex-col justify-center items-center min-h-[300px] rounded-2xl border border-neutral-800 bg-neutral-900">
                     <div className="text-center">
-                        <h1 className="text-2xl font-semibold">Color Bounce</h1>
+                        <h1 className="text-2xl font-semibold">
+                            Color Dot Game
+                        </h1>
                         <p className="text-white/60 mt-2">
                             Group the dots by color.
                         </p>
