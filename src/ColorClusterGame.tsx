@@ -124,7 +124,7 @@ export default function ColorClusterGame({
                                         key={idx}
                                         className="flex items-center gap-2"
                                     >
-                                        <label className="inline-block h-9 w-9 rounded-full overflow-hidden cursor-pointer border border-neutral-700">
+                                        <label className="relative inline-block h-9 w-9 rounded-full overflow-hidden border border-neutral-700">
                                             <input
                                                 type="color"
                                                 value={hex}
@@ -136,7 +136,7 @@ export default function ColorClusterGame({
                                                         )
                                                     );
                                                 }}
-                                                className="absolute opacity-0 w-0 h-0"
+                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                             />
                                             <span
                                                 className="block w-full h-full"
