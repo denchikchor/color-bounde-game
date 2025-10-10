@@ -17,14 +17,12 @@ export function GameField({
             onPointerMove={onPointerMove}
             onPointerLeave={onPointerLeave}
         >
-            {/* Timer */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="text-[160px] font-black text-white/5 leading-none tabular-nums">
                     {playTimeSec}
                 </div>
             </div>
 
-            {/* Dots */}
             {dotsRef.current.map((d) => {
                 const idx = parseInt(d.colorKey.slice(1), 10) || 0;
                 const hex = paletteRef.current[idx] ?? '#9CA3AF';
