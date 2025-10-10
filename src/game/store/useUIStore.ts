@@ -50,9 +50,8 @@ export const useUI = create<UIState>()(
                         dotsPerColor: clampDots(draftDotsPerColor),
                     });
                 },
-                startDefaultGame: (defaults) => {
-                    const colors = (defaults?.colors ?? initialState.colors).slice();
-                    const dotsPerColor = defaults?.dotsPerColor ?? initialState.dotsPerColor;
+                startDefaultGame: () => {
+                    const { colors, dotsPerColor } = initialState;
                     set({
                         screen: 'game',
                         colors,

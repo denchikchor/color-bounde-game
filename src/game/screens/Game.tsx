@@ -1,5 +1,5 @@
 import { GameField } from '../components/GameField';
-import { uiSelectors, useUI } from '../store/ui';
+import { uiSelectors, useUI } from '../store/useUIStore';
 import type { ClusterEngine } from '../types';
 
 export default function Game({ engine }: { engine: ClusterEngine }) {

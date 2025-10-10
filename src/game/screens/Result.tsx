@@ -1,4 +1,4 @@
-import { uiSelectors, useUI } from '../store/ui';
+import { uiSelectors, useUI } from '../store/useUIStore';
 import type { ClusterEngine } from '../types';
 
 export default function Result({ engine }: { engine: ClusterEngine }) {

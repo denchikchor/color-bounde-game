@@ -1,4 +1,4 @@
-import { uiSelectors, useUI } from '../store/ui';
+import { uiSelectors, useUI } from '../store/useUIStore';
 
 export default function Menu() {
     const goSettings = useUI(uiSelectors.openSettings);

@@ -4,7 +4,7 @@ import Menu from './game/screens/Menu';
 import Settings from './game/screens/Settings';
 import Game from './game/screens/Game';
 import Result from './game/screens/Result';
-import { uiSelectors, useUI } from './game/store/ui';
+import { uiSelectors, useUI } from './game/store/useUIStore';
 
 export default function ColorClusterGame() {
     const screen = useUI(uiSelectors.screen);
