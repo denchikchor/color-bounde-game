@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import type { Screen } from "../types";
 import { DEFAULT_DOTS_PER_COLOR, DEFAULT_COLORS } from "../constants";
+import { clampDots } from "../utils";
 
 interface UIActions {
     setScreen: (screen: Screen) => void;
@@ -21,9 +22,6 @@ interface UIInitialState {
 }
 
 interface UIState extends UIInitialState, UIActions {}
-
-const clampDots = (n: number) => Math.max(2, Math.min(100, Math.trunc(n)));
-
 
 export const initialState: UIInitialState = {
     screen: 'menu',
