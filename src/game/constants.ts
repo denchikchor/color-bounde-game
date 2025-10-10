@@ -14,3 +14,4 @@ export const IDLE_FREQ_MAX = 1.2;
 export const MAX_SPEED = 1200;
 
 export const DEFAULT_COLORS = ['#FACC15', '#22D3EE', '#E879F9', '#FFFFFF'];
+export const DEFAULT_DOTS_PER_COLOR = 3;

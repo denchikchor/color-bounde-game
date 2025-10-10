@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { Dot, Options, Ptr } from './types';
+import type { ClusterEngine, Dot, Options, Ptr } from './types';
 import {
   BOUNCE, CLUSTER_RADIUS, COLLISION_PUSH, DT, DOT_SIZE, EXCLUSION_MARGIN,
   FRICTION, HOVER_RADIUS, IDLE_FORCE, IDLE_FREQ_MAX, IDLE_FREQ_MIN,
@@ -7,12 +7,10 @@ import {
 } from './constants';
 import { rand } from './utils';
 
-export function useClusterEngine({ onWin }: Options) {
-  // Live palette and color keys
+export function useClusterEngine({ onWin }: Options): ClusterEngine {
   const paletteRef = useRef<string[]>([]);
   const colorsOrderRef = useRef<string[]>([]);
 
-  // Physics / DOM refs and state
   const fieldRef = useRef<HTMLDivElement | null>(null);
   const dotElsRef = useRef<Map<string, HTMLDivElement>>(new Map());
   const dotsRef = useRef<Dot[]>([]);
@@ -24,7 +22,6 @@ export function useClusterEngine({ onWin }: Options) {
     x: 0, y: 0, inside: false, type: 'mouse',
   });
 
-  // Timer
   const [startedAt, setStartedAt] = useState<number | null>(null);
   const [finishedAt, setFinishedAt] = useState<number | null>(null);
   const finishedAtRef = useRef<number | null>(null);
@@ -302,14 +299,7 @@ export function useClusterEngine({ onWin }: Options) {
 
   return {
     setConfig,
-    // Lifecycle
-    enterGame, exitGame,
-    // Scene and refs
-    sceneKey,
-    fieldRef, dotElsRef, dotsRef, paletteRef,
-    // Time
-    playTimeSec, timerTick,
-    // Pointer handlers
-    onPointerMove, onPointerLeave,
+    enterGame, exitGame, sceneKey, fieldRef, dotElsRef, dotsRef,
+    paletteRef, playTimeSec, timerTick, onPointerMove, onPointerLeave,
   };
 }
