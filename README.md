@@ -8,7 +8,7 @@ The goal is simple: **group all moving dots by their color using pointer repulsi
 
 ## Live Demo
 
-[**DEMO**](https://color-bounde-game.vercel.app/)
+[**DEMO**](https://color-dot-game.vercel.app/)
 
 Play instantly in your browser — no installation required.
 
