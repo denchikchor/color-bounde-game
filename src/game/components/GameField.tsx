@@ -13,7 +13,11 @@ export function GameField({
     return (
         <div
             ref={fieldRef}
-            className="relative mt-4 h-[560px] rounded-2xl bg-neutral-900 border border-neutral-800 overflow-hidden cursor-crosshair circle-cursor"
+            className="
+                relative mt-4 h-[560px]
+                rounded-2xl bg-neutral-900 border border-neutral-800
+                overflow-hidden cursor-crosshair circle-cursor
+                touch-none overscroll-none select-none"
             onPointerMove={onPointerMove}
             onPointerLeave={onPointerLeave}
         >
