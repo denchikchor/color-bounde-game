@@ -33,7 +33,7 @@ export function GameField({
                             if (el) dotElsRef.current.set(d.id, el);
                             else dotElsRef.current.delete(d.id);
                         }}
-                        className="absolute rounded-full shadow will-change-transform"
+                        className="absolute rounded-full will-change-transform"
                         style={{
                             width: DOT_SIZE,
                             height: DOT_SIZE,

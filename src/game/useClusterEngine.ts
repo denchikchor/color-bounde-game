@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import type { ClusterEngine, Dot, Options, Ptr } from './types';
+import type { Dot, Options, Ptr } from './types';
 import {
   BOUNCE, CLUSTER_RADIUS, COLLISION_PUSH, DT, DOT_SIZE, EXCLUSION_MARGIN,
   FRICTION, HOVER_RADIUS, IDLE_FORCE, IDLE_FREQ_MAX, IDLE_FREQ_MIN,
   IMPULSE_SCALE, MAX_SPEED, STRENGTH,
+  DEFAULT_DOTS_PER_COLOR,
+  SPAWN_VELOCITY,
 } from './constants';
 import { rand } from './utils';
 
-export function useClusterEngine({ onWin }: Options): ClusterEngine {
+export function useClusterEngine({ onWin }: Options) {
   const paletteRef = useRef<string[]>([]);
   const colorsOrderRef = useRef<string[]>([]);
 
@@ -50,10 +52,6 @@ export function useClusterEngine({ onWin }: Options): ClusterEngine {
   // Force re-mount of field contents when (re)spawn
   const [sceneKey, setSceneKey] = useState(0);
 
-  // Keep latest elapsed time for onWin
-  const elapsedRef = useRef(0);
-  useEffect(() => { elapsedRef.current = playTimeSec; }, [playTimeSec]);
-
   // Public configuration setter
   const setConfig = (colors: string[], dotsPerColor: number) => {
     paletteRef.current = colors.slice();
@@ -61,7 +59,7 @@ export function useClusterEngine({ onWin }: Options): ClusterEngine {
     dotsPerColorRef.current = dotsPerColor;
   };
 
-  const dotsPerColorRef = useRef(3);
+  const dotsPerColorRef = useRef(DEFAULT_DOTS_PER_COLOR);
 
   const enterGame = () => {
     finishedAtRef.current = null;
@@ -92,7 +90,7 @@ export function useClusterEngine({ onWin }: Options): ClusterEngine {
     if (!field) return;
     const rect = field.getBoundingClientRect();
 
-    const pad = 24;
+    const padding = 24;
     const arr: Dot[] = [];
     const keys = colorsOrderRef.current;
     const dotsPerColor = dotsPerColorRef.current;
@@ -100,14 +98,13 @@ export function useClusterEngine({ onWin }: Options): ClusterEngine {
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
       for (let j = 0; j < dotsPerColor; j++) {
-        const seedV = 80;
         arr.push({
           id: `${key}-${j}-${Math.random().toString(36).slice(2)}`,
           colorKey: key,
-          x: rand(pad, rect.width - pad),
-          y: rand(pad, rect.height - pad - 2),
-          vx: rand(-seedV, seedV),
-          vy: rand(-seedV, seedV),
+          x: rand(padding, rect.width - padding),
+          y: rand(padding, rect.height - padding - 2),
+          vx: rand(-SPAWN_VELOCITY, SPAWN_VELOCITY),
+          vy: rand(-SPAWN_VELOCITY, SPAWN_VELOCITY),
           phase: rand(0, Math.PI * 2),
           freq: rand(IDLE_FREQ_MIN, IDLE_FREQ_MAX),
         });
@@ -200,8 +197,8 @@ export function useClusterEngine({ onWin }: Options): ClusterEngine {
 
       // Friction and speed clamp
       d.vx *= 1 - FRICTION; d.vy *= 1 - FRICTION;
-      const sp = Math.hypot(d.vx, d.vy);
-      if (sp > MAX_SPEED) { const k = MAX_SPEED / sp; d.vx *= k; d.vy *= k; }
+      const speed = Math.hypot(d.vx, d.vy);
+      if (speed > MAX_SPEED) { const k = MAX_SPEED / speed; d.vx *= k; d.vy *= k; }
 
       // Position update
       d.x += d.vx * dt;
@@ -288,9 +285,9 @@ export function useClusterEngine({ onWin }: Options): ClusterEngine {
     // Win condition handling
     if (allGood) {
       if (finishedAtRef.current == null) {
-        const ts = performance.now();
-        finishedAtRef.current = ts;
-        setFinishedAt(ts);
+        const timestamp = performance.now();
+        finishedAtRef.current = timestamp;
+        setFinishedAt(timestamp);
         stopLoop();
         onWin();
       }

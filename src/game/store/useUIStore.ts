@@ -1,27 +1,8 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-import type { Screen } from "../types";
+import type { UIInitialState, UIState } from "../types";
 import { DEFAULT_DOTS_PER_COLOR, DEFAULT_COLORS } from "../constants";
 import { clampDots } from "../utils";
-
-interface UIActions {
-    setScreen: (screen: Screen) => void;
-    setDraft: (p: Partial<Pick<UIState, 'draftColors' | 'draftDotsPerColor'>>) => void;
-    openSettings: () => void;
-    applyAndGoGame: () => void;
-    startDefaultGame: (defaults?: { colors?: string[]; dotsPerColor?: number }) => void;
-    backToMenu: () => void;
-}
-
-interface UIInitialState {
-    screen: Screen;
-    colors: string[];
-    dotsPerColor: number;
-    draftColors: string[];
-    draftDotsPerColor: number;
-}
-
-interface UIState extends UIInitialState, UIActions {}
 
 export const initialState: UIInitialState = {
     screen: 'menu',

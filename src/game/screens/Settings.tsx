@@ -20,8 +20,12 @@ export default function Settings() {
         setDraft({ draftColors: draftColors.filter((_, idx) => idx !== i) });
     };
 
-    const addDraftColor = () =>
-        setDraft({ draftColors: [...draftColors, '#ffffff'] });
+    const addDraftColor = () => {
+        const randomColor = `#${Math.floor(Math.random() * 0xffffff)
+            .toString(16)
+            .padStart(6, '0')}`;
+        setDraft({ draftColors: [...draftColors, randomColor] });
+    };
 
     return (
         <div className="mt-8 p-6 rounded-2xl border border-neutral-800 bg-neutral-900">
